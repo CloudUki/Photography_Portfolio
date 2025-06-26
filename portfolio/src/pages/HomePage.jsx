@@ -3,16 +3,37 @@ import {
   Heading,
   Text,
   Button,
-  VStack
+  VStack,
 } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import About from './About'
+import Navbar from '@/components/NavBar'
 
 function HomePage() {
+    const images = [
+    '/FullSTI.jpg',
+    '/ASAHoco.jpg',
+    '/porsche.jpg',
+    '/LivCollin.jpg',
+    '/MUTailGate.jpg'
+]
+
+    const [currentIndex, setCurrentIndex] = useState(0)
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+        setCurrentIndex((prev) => (prev + 1) % images.length)
+        }, 5000)
+
+        return () => clearInterval(interval)
+    }, [])
+
     return (
         <Box
         position="relative"
         h="100vh"
-        bgImage="url('/FullSTI.jpg')"
+        bgImage={`url(${images[currentIndex]})`}
         bgSize="cover"
         bgPosition="center"
         bgRepeat="no-repeat"
@@ -26,7 +47,7 @@ function HomePage() {
             bg="blackAlpha.700"
             zIndex="1"
         />
-
+        <Navbar padding="0" />
         <VStack
             position="relative"
             zIndex="2"
@@ -39,15 +60,13 @@ function HomePage() {
             px={4}
         >
             <Heading fontSize={['3xl', '5xl']} fontWeight="bold">
-            Brandon Yang Photography
+            Brandon's Photography
             </Heading>
             <Text fontSize="lg" maxW="xl">
             Capturing life through the lens — a curated showcase of my best moments and visual stories.
             </Text>
-            <Button as={RouterLink} to="/galleries" colorScheme="whiteAlpha" size="lg">
-            View Galleries
-            </Button>
         </VStack>
+        <About />
         </Box>
     )
 }

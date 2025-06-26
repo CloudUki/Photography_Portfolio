@@ -35,13 +35,13 @@ function GalleryPage() {
       </Button>
       <SimpleGrid columns={[1, 2, 3]} spacing={4}>
         {photos.map((photo) => (
-          <Box key={photo.id} overflow="hidden" borderRadius="md" boxShadow="md">
+          <Box key={photo.id} overflow="hidden" borderRadius="md" boxShadow="sm">
             <Image
+              loading='lazy'
               src={photo.image_url}
               alt={photo.caption || 'Photo'}
               objectFit="cover"
               width="100%"
-              height="100%"
             />
           </Box>
         ))}
