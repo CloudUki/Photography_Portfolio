@@ -5,7 +5,6 @@ import {
   Button,
   VStack,
 } from '@chakra-ui/react'
-import { Link as RouterLink } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import About from './About'
 import Navbar from '@/components/NavBar'
@@ -37,6 +36,7 @@ function HomePage() {
         bgSize="cover"
         bgPosition="center"
         bgRepeat="no-repeat"
+        transition="background-image 0.8s ease-in-out"
         >
         <Box
             position="absolute"
