@@ -2,6 +2,7 @@ import { useParams, Link as RouterLink } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import supabase from '../lib/supabaseClient'
 import { Image, SimpleGrid, Box, Text, Heading, Button } from '@chakra-ui/react'
+import Footer from '@/components/Footer'
 
 function GalleryPage() {
   const { id } = useParams()
@@ -46,6 +47,7 @@ function GalleryPage() {
           </Box>
         ))}
       </SimpleGrid>
+      <Footer />
     </Box>
   )
 }

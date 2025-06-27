@@ -26,4 +26,4 @@ dist-ssr
 # src/lib/.env
 .env
 
-src/pages/Contact.jsx
+src/pages/ContactPage.jsx

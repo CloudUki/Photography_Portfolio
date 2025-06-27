@@ -1,13 +1,8 @@
-import {
-  Box,
-  Heading,
-  Text,
-  Button,
-  VStack,
-} from '@chakra-ui/react'
+import { Box, Heading, Text, Button, VStack } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import About from './About'
 import Navbar from '@/components/NavBar'
+import Footer from '@/components/Footer'
 
 function HomePage() {
     const images = [
@@ -67,6 +62,7 @@ function HomePage() {
             </Text>
         </VStack>
         <About />
+        <Footer />
         </Box>
     )
 }

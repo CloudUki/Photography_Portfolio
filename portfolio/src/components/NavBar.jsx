@@ -21,7 +21,7 @@ function Navbar() {
       <HStack spacing={4} gap={5}>
         <ChakraLink href="#about" color="white" fontSize="xl">About</ChakraLink>
         <ChakraLink as={RouterLink} to="/galleries" color="white" fontSize="xl">Gallery</ChakraLink>
-        <ChakraLink as={RouterLink} to="/contact" color="white" fontSize="xl">Contact</ChakraLink>
+        {/* <ChakraLink as={RouterLink} to="/contact" color="white" fontSize="xl">Contact</ChakraLink> */}
       </HStack>
     </Flex>
   )

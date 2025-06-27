@@ -3,6 +3,7 @@ import supabase from '../lib/supabaseClient'
 import { Box, Heading, Text, SimpleGrid, Link } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
 import Navbar from '@/components/NavBar'
+import Footer from '@/components/Footer'
 
 export default function GalleryList() {
   const [galleries, setGalleries] = useState([])
@@ -69,6 +70,7 @@ export default function GalleryList() {
           </Link>
         ))}
       </SimpleGrid>
+        <Footer mt={8} />
     </Box>
   )
 }
