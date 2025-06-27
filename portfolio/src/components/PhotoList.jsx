@@ -37,7 +37,7 @@ function GalleryPage() {
         {photos.map((photo) => (
           <Box key={photo.id} overflow="hidden" borderRadius="md" boxShadow="sm">
             <Image
-              loading='lazy'
+              loading='eager'
               src={photo.image_url}
               alt={photo.caption || 'Photo'}
               objectFit="cover"
