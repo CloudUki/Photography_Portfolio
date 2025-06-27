@@ -10,6 +10,7 @@ A clean, responsive, and developer-friendly portfolio built with React, ViteJS, 
 - Styling: Chakra-UI
 - Host: Vercel
 - Database: Supabase
+- Analytics: Vercel Analytics
 
 # Run Locally:
 1. Clone the repository 
