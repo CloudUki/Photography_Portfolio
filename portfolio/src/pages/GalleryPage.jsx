@@ -18,7 +18,6 @@ export default function GalleryList() {
     fetchGalleries()
   }, [])
 
-
   return (
     <Box p={4}>
       <Navbar />
