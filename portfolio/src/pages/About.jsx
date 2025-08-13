@@ -4,8 +4,12 @@ import '../styles/about.css'
 
 function AboutMe() {
   return (
-    <Box p={8} id="about">
-      <Heading mb={6} textAlign="center">About Me</Heading>
+    <Box 
+    p={8} 
+    bg="#FAF9F8" 
+    color="#000"
+    fontFamily={"'Playfair Display', serif"} 
+    id="about">
         <Flex
             direction={['column', 'column', 'row']}
             align="center"
@@ -25,13 +29,13 @@ function AboutMe() {
             I’m a Software Engineer by day, but I love capturing moments through my lens in my free time.
             I also worked a student photographer for Moravian University from 2023 - 2025, where I was working within the Office of Marketing and Communications.
           </Text>
-          <Text fontSize="xl" mt={4}>
+          <Text fontSize="xl" mt={2}>
             This portfolio showcases some of my favorite work, and I hope it gives you a glimpse into my world through photography.
           </Text>
-          <Text fontSize="xl" mt={4}>
+          <Text fontSize="xl" mt={2}>
             Feel free to connect with me on social media or reach out via email if you have any questions or just want to chat about photography!
           </Text>
-        <Flex mt={6} gap={4}>
+        {/* <Flex mt={6} gap={4}>
             <a href="mailto:brandon.yang1210@gmail.com" target="_blank" rel="noopener noreferrer">
                 <Text color="white.500" fontWeight="bold" _hover={{ textDecoration: 'underline' }}>
                     Email
@@ -42,7 +46,7 @@ function AboutMe() {
                     LinkedIn
                 </Text>
             </a>
-        </Flex>
+        </Flex> */}
         </Box>
       </Flex>
     </Box>
