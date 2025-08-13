@@ -2,7 +2,6 @@ import { useParams, Link as RouterLink } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import supabase from '../lib/supabaseClient'
 import { Image, SimpleGrid, Box, Text, Heading, Button } from '@chakra-ui/react'
-import Footer from '@/components/Footer'
 
 function GalleryPage() {
   const { id } = useParams()
@@ -39,18 +38,18 @@ function GalleryPage() {
   const bgColor = gallery?.theme_color || '#00000'
 
   return (
-    <Box p={4} minHeight="100vh" bg={bgColor}>
+    <Box p={4} minHeight="100vh" bg={bgColor} fontFamily={"'Playfair Display', serif"}>
       <Button mb={4} as={RouterLink} to="/galleries" colorScheme="blue">
         Back to Galleries
       </Button>
 
       {gallery && (
-        <Heading mb={6} textAlign="center">
+        <Heading mb={6} textAlign="center" fontFamily={"'Playfair Display', serif"}>
           {gallery.name}
         </Heading>
       )}
 
-      <SimpleGrid columns={[1, 2, 3]} spacing={4}>
+      <SimpleGrid columns={[1, 2, 3]} spacing={4} >
         {photos.map((photo) => (
           <Box key={photo.id} overflow="hidden" borderRadius="md" boxShadow="sm">
             <Image
@@ -63,8 +62,6 @@ function GalleryPage() {
           </Box>
         ))}
       </SimpleGrid>
-
-      <Footer />
     </Box>
   )
 }

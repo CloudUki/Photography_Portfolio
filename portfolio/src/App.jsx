@@ -3,7 +3,8 @@ import GalleryList from './pages/GalleryPage'
 import GalleryPage from './components/PhotoList'
 import HomePage from './pages/HomePage'
 import { Analytics } from "@vercel/analytics/react"
-// import ContactPage from './pages/ContactPage'
+import Footer from '@/components/Footer'
+import Contact from './pages/Contact'
 
 function App() {
   return (
@@ -13,8 +14,9 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/galleries" element={<GalleryList />} />
         <Route path="/gallery/:id" element={<GalleryPage />} />
-        {/* <Route path="/contact" element={<ContactPage />} /> */}
+        <Route path="/contact" element={<Contact />} />
       </Routes>
+      <Footer />
     </Router>
   )
 }
