@@ -1,6 +1,7 @@
 import { Box, Heading, Text, Button, VStack, Image } from '@chakra-ui/react'
 import { keyframes } from '@emotion/react'
 import { useEffect, useState, useRef } from 'react'
+import { Link as RouterLink } from 'react-router-dom'
 import About from './About'
 
 // animation keyframes
@@ -246,7 +247,7 @@ function HomePage() {
                         }}
                         transition="all 0.3s ease"
                         animation={`${fadeInUp} 1s ease-out 0.6s both`}
-                        onClick ={() => { window.location.href = '/galleries' }}
+                        as={RouterLink} to="/galleries"
                     >
                         View Gallery
                     </Button>
