@@ -55,6 +55,7 @@ export default function GalleryList() {
                 justifyContent="center"
               >
                 <Text
+                  className='gallery-titles'
                   fontSize="2xl"
                   fontWeight="bold"
                   color="white"

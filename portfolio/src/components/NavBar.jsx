@@ -18,16 +18,16 @@ function Navbar() {
         top="0"
         zIndex="10"
       >
-        <ChakraLink as={RouterLink} to="/" fontSize="xl" color="#000">
+        <ChakraLink as={RouterLink} className='home-nav' to="/" fontSize="xl" color="#000">
           Brandon Yang
         </ChakraLink>
         <HStack spacing={4} gap={5}>
           {location.pathname === '/contact' ? (
-            <ChakraLink as={RouterLink} to="/galleries" color="#000" fontSize="xl">
+            <ChakraLink as={RouterLink} className='gallery-nav' to="/galleries" color="#000" fontSize="xl">
               Gallery
             </ChakraLink>
           ) : (
-            <ChakraLink as={RouterLink} to="/contact" color="#000" fontSize="xl">
+            <ChakraLink as={RouterLink} className='contact-nav' to="/contact" color="#000" fontSize="xl">
               Contact
             </ChakraLink>
           )}

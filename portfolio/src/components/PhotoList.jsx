@@ -39,7 +39,7 @@ function GalleryPage() {
 
   return (
     <Box p={4} minHeight="100vh" bg={bgColor} fontFamily={"'Playfair Display', serif"}>
-      <Button mb={4} as={RouterLink} to="/galleries" colorScheme="blue">
+      <Button mb={4} as={RouterLink} className='back-button'to="/galleries" colorScheme="blue">
         Back to Galleries
       </Button>
 
