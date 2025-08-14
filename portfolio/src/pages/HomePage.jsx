@@ -147,115 +147,123 @@ function HomePage() {
     return (
         <>
             <style>{`
-                @keyframes ripple {
-                    to {
-                        transform: scale(6);
-                        opacity: 0;
-                    }
+            @keyframes ripple {
+                to {
+                transform: scale(6);
+                opacity: 0;
                 }
+            }
             `}</style>
-            
+
+            <main>
             <Box
+                as="section"
                 position="relative"
                 h="100vh"
                 bg="#FAF9F8"
                 overflow="hidden"
             >
-
-                <Box position="absolute" inset="0" pointerEvents="none" zIndex="2">
-                    {floatingImageConfigs.map((config, index) => (
-                        <Box
-                            key={index}
-                            position="absolute"
-                            w={config.size}
-                            h={config.size}
-                            cursor="pointer"
-                            pointerEvents="auto"
-                            animation={`${float} ${config.duration} ease-in-out infinite`}
-                            _hover={{ 
-                                transform: 'scale(1.1)',
-                                filter: 'brightness(1.1)'
-                            }}
-                            transition="all 0.3s ease"
-                            style={{
-                                top: config.top,
-                                left: config.left,
-                                right: config.right,
-                                animationDelay: config.delay,
-                                transform: `translateY(${scrollY * (index + 1) * 0.3}px) rotate(${scrollY * 0.05}deg)`
-                            }}
-                            onClick={handleFloatingImageClick}
-                        >
-                            <Image
-                                src={images[config.imageIndex]}
-                                alt={`Photography ${config.imageIndex + 1}`}
-                                w="100%"
-                                h="100%"
-                                objectFit="cover"
-                                pointerEvents="none"
-                                filter="drop-shadow(0 10px 20px rgba(0,0,0,0.15))"
-                            />
-                        </Box>
-                    ))}
+                <Box as="aside" position="absolute" inset="0" pointerEvents="none" zIndex="2">
+                {floatingImageConfigs.map((config, index) => (
+                    <Box
+                    key={index}
+                    position="absolute"
+                    w={config.size}
+                    h={config.size}
+                    cursor="pointer"
+                    pointerEvents="auto"
+                    animation={`${float} ${config.duration} ease-in-out infinite`}
+                    _hover={{
+                        transform: 'scale(1.1)',
+                        filter: 'brightness(1.1)',
+                    }}
+                    transition="all 0.3s ease"
+                    style={{
+                        top: config.top,
+                        left: config.left,
+                        right: config.right,
+                        animationDelay: config.delay,
+                        transform: `translateY(${scrollY * (index + 1) * 0.3}px) rotate(${
+                        scrollY * 0.05
+                        }deg)`,
+                    }}
+                    onClick={handleFloatingImageClick}
+                    >
+                    <Image
+                        src={images[config.imageIndex]}
+                        alt={`Photography ${config.imageIndex + 1}`}
+                        w= "100%"
+                        h= "100%"
+                        objectFit= "cover"
+                        pointerEvents= "none"
+                        filter= "drop-shadow(0 10px 20px rgba(0,0,0,0.15))"
+                        loading = "eager"
+                    />
+                    </Box>
+                ))}
                 </Box>
-                
+
                 <VStack
-                    position="relative"
-                    zIndex="3"
-                    spacing={6}
-                    h="100%"
-                    align="center"
-                    justify="center"
-                    color="gray.800"
-                    textAlign="center"
-                    px={4}
+                as="header"
+                position="relative"
+                zIndex="3"
+                spacing={6}
+                h="100%"
+                align="center"
+                justify="center"
+                color="gray.800"
+                textAlign="center"
+                px={4}
                 >
-                    <Heading 
-                        fontSize={['3xl', '5xl']} 
-                        fontWeight="bold"
-                        animation={`${fadeInUp} 1s ease-out`}
-                        textShadow="none"
-                        fontFamily={"playfair display, serif"}
-                    >
-                        Brandon's Photography
-                    </Heading>
-                    <Text 
-                        fontSize="lg" 
-                        maxW="xl"
-                        animation={`${fadeInUp} 1s ease-out 0.3s both`}
-                        textShadow="none"
-                        fontFamily={"playfair display, serif"}
-                    >
-                        Capturing life through the lens — a curated showcase of my best moments and visual stories.
-                    </Text>
-                    <Button
-                        size="lg"
-                        colorScheme="blue"
-                        variant="solid"
-                        px={8}
-                        py={6}
-                        fontSize="lg"
-                        fontFamily={"playfair display, serif"}
-                        borderRadius="full"
-                        boxShadow="2xl"
-                        _hover={{
-                            transform: 'translateY(-2px)',
-                            boxShadow: '1md'
-                        }}
-                        _active={{
-                            transform: 'scale(0.98)'
-                        }}
-                        transition="all 0.3s ease"
-                        animation={`${fadeInUp} 1s ease-out 0.6s both`}
-                        as={RouterLink} to="/galleries"
-                    >
-                        View Gallery
-                    </Button>
+                <Heading
+                    as="h1"
+                    className='title'
+                    fontSize={['3xl', '5xl']}
+                    fontWeight="bold"
+                    animation={`${fadeInUp} 1s ease-out`}
+                    fontFamily={"playfair display, serif"}
+                >
+                    Brandon&apos;s Photography
+                </Heading>
+                <Text
+                    as="p"
+                    className='tagline'
+                    fontSize="lg"
+                    maxW="xl"
+                    animation={`${fadeInUp} 1s ease-out 0.3s both`}
+                    fontFamily={"playfair display, serif"}
+                >
+                    Capturing life through the lens.
+                </Text>
+                <Button
+                    as={RouterLink}
+                    className='gallery-button'
+                    to="/galleries"
+                    size="lg"
+                    colorScheme="blue"
+                    px={8}
+                    py={6}
+                    fontSize="lg"
+                    fontFamily={"playfair display, serif"}
+                    borderRadius="full"
+                    boxShadow="2xl"
+                    _hover={{ transform: 'translateY(-2px)', boxShadow: '1md' }}
+                    _active={{ transform: 'scale(0.98)' }}
+                    transition="all 0.3s ease"
+                    animation={`${fadeInUp} 1s ease-out 0.6s both`}
+                >
+                    View Gallery
+                </Button>
                 </VStack>
             </Box>
-            <About />
+
+            <section>
+                <About />
+            </section>
+            </main>
         </>
     )
+
 }
 
 export default HomePage
