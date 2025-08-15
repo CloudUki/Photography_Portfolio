@@ -20,24 +20,6 @@ const float = keyframes`
   }
 `;
 
-const moveShape = keyframes`
-  0% {
-    transform: translateX(-50px) translateY(0) rotate(0deg);
-  }
-  25% {
-    transform: translateX(50px) translateY(-30px) rotate(90deg);
-  }
-  50% {
-    transform: translateX(100px) translateY(0) rotate(180deg);
-  }
-  75% {
-    transform: translateX(25px) translateY(30px) rotate(270deg);
-  }
-  100% {
-    transform: translateX(-50px) translateY(0) rotate(360deg);
-  }
-`;
-
 const fadeInUp = keyframes`
   from {
     opacity: 0;
@@ -113,24 +95,24 @@ function HomePage() {
         { 
             top: '5%', 
             left: '8%', 
-            delay: '0s', 
-            duration: '8s',
+            delay: '1s', 
+            duration: '30s',
             size: '35%',
             imageIndex: 1 // ASAHoco.jpg
         },
         { 
             top: '8%', 
             right: '5%', 
-            delay: '2s', 
-            duration: '10s',
+            delay: '1s', 
+            duration: '30s',
             size: '35%',
             imageIndex: 2 // porsche.jpg
         },
         { 
             top: '65%', 
             left: '10%', 
-            delay: '4s', 
-            duration: '7s',
+            delay: '1s', 
+            duration: '30s',
             size: '35%',
             imageIndex: 3 // LivCollin.jpg
         },
@@ -138,7 +120,7 @@ function HomePage() {
             top: '65%', 
             right: '5%', 
             delay: '1s', 
-            duration: '9s',
+            duration: '30s',
             size: '35%',
             imageIndex: 4 // MUTailGate.jpg
         },
