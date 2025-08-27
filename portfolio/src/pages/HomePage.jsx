@@ -3,6 +3,7 @@ import { keyframes } from '@emotion/react'
 import { useEffect, useState, useRef } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import About from './About'
+import Chatbot from '@/components/ChatBot'
 
 // animation keyframes
 const float = keyframes`
@@ -243,6 +244,7 @@ function HomePage() {
                 <About />
             </section>
             </main>
+            <Chatbot />
         </>
     )
 
