@@ -1,4 +1,19 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useAppDispatch, useAppSelector } from '../hooks/redux';
+import {
+  selectMessages,
+  selectInputValue,
+  selectIsTyping,
+  selectShowQuickQuestions,
+  selectIsOpen,
+  selectHasNewMessage,
+  setInputValue,
+  initializeChat,
+  toggleChat,
+  sendMessage,
+  setHasNewMessage
+} from '../store/chatSlice';
+
 import {
   Box,
   VStack,
@@ -18,12 +33,14 @@ import {useColorModeValue} from "@/components/ui/color-mode";
 import { Send, Camera, Clock, DollarSign, Calendar, MapPin, MessageCircle, X, Minimize2 } from 'lucide-react';
 
 const Chatbot = () => {
-  const [messages, setMessages] = useState([]);
-  const [inputValue, setInputValue] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
-  const [showQuickQuestions, setShowQuickQuestions] = useState(true);
-  const [isOpen, setIsOpen] = useState(false);
-  const [hasNewMessage, setHasNewMessage] = useState(false);
+  const dispatch = useAppDispatch();
+  const messages = useAppSelector(selectMessages);
+  const inputValue = useAppSelector(selectInputValue);
+  const isTyping = useAppSelector(selectIsTyping);
+  const showQuickQuestions = useAppSelector(selectShowQuickQuestions);
+  const isOpen = useAppSelector(selectIsOpen);
+  const hasNewMessage = useAppSelector(selectHasNewMessage);
+  
   const messagesEndRef = useRef(null);
 
   const bgColor = useColorModeValue('white', 'gray.800');
@@ -40,124 +57,6 @@ const Chatbot = () => {
     { text: "Do you travel?", icon: MapPin }
   ];
 
-  const botResponses = {
-    greeting: "Hi! 👋 I'm here to help with your photography questions. How can I assist you today?",
-    
-    rates: `My photography rates vary by session type:
-
-    Portrait Sessions: $150-300
-    Engagement: $350-500
-    Weddings: $700-1200
-    Events: $50-120/hour
-    Cars: $100-200
-
-    Would you like details about a specific type of session?`,
-
-        weddings: `I have yet to shoot a wedding! I am open to doing wedding photography.
-
-    Wedding Packages:
-    • Essentials: 6 hours, 300+ photos ($700)
-    • Premium: 8 hours, 500+ photos, engagement session ($800)  
-    • Luxury: 10 hours, 800+ photos, engagement + bridal session ($1200)
-
-    All packages include online gallery and photos emailed. Would you like to schedule?`,
-        
-        duration: `Session lengths depend on the type:
-
-    Portrait sessions: 1-2 hours
-    Engagement sessions: 1.5-2 hours
-    Wedding coverage: 6-10 hours
-    Event photography: 2-6 hours
-    Car shoots: 1-2 hours
-
-    This gives us plenty of time for variety and different lighting!`,
-        
-        included: `Here's what's typically included:
-
-    Professional editing of all photos
-    Online gallery for easy sharing
-    High-resolution digital downloads
-    Print release for personal use
-    Pre-session consultation
-    Wardrobe and location guidance
-
-    Physical prints and albums available separately!`,
-        
-        turnaround: `You'll receive your photos:
-
-    Sneak peeks: 24-48 hours
-    Full gallery: 2-3 weeks for portraits
-    Wedding galleries: 4-6 weeks
-
-    I believe in quality over speed - every photo is carefully edited!`,
-        
-        travel: `Yes, I'm available for travel! 
-
-    Local area (within 30 miles): No extra charge
-    Destination sessions: Custom quote including travel
-
-    I love exploring new locations for unique photos!`,
-        
-        booking: `Ready to book? Here's how:
-
-    1. Email brandon.yang1210@gmail.com, or follow me on Instagram @brandony_photography
-    2. We'll discuss your vision and needs
-    3. Sign contract and pay 50% retainer
-    4. Plan your session details
-    5. Capture amazing photos!
-
-    Would you like my contact information?`,
-        
-        contact: `Here's how to reach me:
-
-    Email: brandon.yang1210@gmail.com
-    Phone: (717) 723-1227
-    Based in: Lancaster, PA
-
-    I typically respond within 24 hours!`,
-
-        portfolio: `You can view my work on this website or my Instagram brandony_photography:
-
-    I'd love to show you examples for your specific needs!`,
-  };
-
-  const getResponse = (message) => {
-    const msg = message.toLowerCase();
-    
-    if (msg.includes('price') || msg.includes('cost') || msg.includes('rate') || msg.includes('how much')) {
-      return botResponses.rates;
-    }
-    if (msg.includes('wedding')) {
-      return botResponses.weddings;
-    }
-    if (msg.includes('how long') || msg.includes('duration') || msg.includes('session')) {
-      return botResponses.duration;
-    }
-    if (msg.includes('include') || msg.includes('get') || msg.includes('package')) {
-      return botResponses.included;
-    }
-    if (msg.includes('when') || msg.includes('delivery') || msg.includes('receive') || msg.includes('turnaround')) {
-      return botResponses.turnaround;
-    }
-    if (msg.includes('travel') || msg.includes('location') || msg.includes('distance')) {
-      return botResponses.travel;
-    }
-    if (msg.includes('book') || msg.includes('schedule') || msg.includes('appointment')) {
-      return botResponses.booking;
-    }
-    if (msg.includes('contact') || msg.includes('reach') || msg.includes('phone') || msg.includes('email')) {
-      return botResponses.contact;
-    }
-    if (msg.includes('portfolio') || msg.includes('work') || msg.includes('photos') || msg.includes('examples')) {
-      return botResponses.portfolio;
-    }
-    if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey')) {
-      return botResponses.greeting;
-    }
-    
-    return botResponses.default;
-  };
-
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -167,43 +66,17 @@ const Chatbot = () => {
   }, [messages]);
 
   useEffect(() => {
-    setMessages([{
-      text: botResponses.greeting,
-      isBot: true,
-      timestamp: new Date()
-    }]);
-  }, []);
+    dispatch(initializeChat());
+  }, [dispatch]);
 
   useEffect(() => {
     if (!isOpen && messages.length > 1) {
-      setHasNewMessage(true);
+      dispatch(setHasNewMessage(true));
     }
-  }, [messages, isOpen]);
+  }, [messages, isOpen, dispatch]);
 
-  const handleSendMessage = (messageText = inputValue) => {
-    if (!messageText.trim()) return;
-
-    const userMessage = {
-      text: messageText,
-      isBot: false,
-      timestamp: new Date()
-    };
-
-    setMessages(prev => [...prev, userMessage]);
-    setInputValue('');
-    setIsTyping(true);
-    setShowQuickQuestions(false);
-
-    setTimeout(() => {
-      const botResponse = {
-        text: getResponse(messageText),
-        isBot: true,
-        timestamp: new Date()
-      };
-      
-      setMessages(prev => [...prev, botResponse]);
-      setIsTyping(false);
-    }, 1000 + Math.random() * 1000);
+  const handleSendMessage = (messageText = null) => {
+    dispatch(sendMessage(messageText));
   };
 
   const handleKeyPress = (e) => {
@@ -216,16 +89,17 @@ const Chatbot = () => {
     handleSendMessage(question);
   };
 
-  const toggleChat = () => {
-    setIsOpen(!isOpen);
-    if (!isOpen) {
-      setHasNewMessage(false);
-    }
+  const handleToggleChat = () => {
+    dispatch(toggleChat());
+  };
+
+  const handleInputChange = (e) => {
+    dispatch(setInputValue(e.target.value));
   };
 
   return (
     <>
-      {/* Button */}
+      {/* Chat Button */}
       <Box
         position="fixed"
         bottom="20px"
@@ -233,7 +107,7 @@ const Chatbot = () => {
         zIndex={9999}
       >
         <IconButton
-          onClick={toggleChat}
+          onClick={handleToggleChat}
           size="lg"
           colorScheme="blue"
           borderRadius="full"
@@ -264,7 +138,7 @@ const Chatbot = () => {
         </IconButton>
       </Box>
 
-      {/* Chatbot */}
+      {/* Chatbot Window */}
       {isOpen && (
         <Box
           position="fixed"
@@ -316,7 +190,7 @@ const Chatbot = () => {
                   variant="ghost"
                   color="whiteAlpha.800"
                   _hover={{ color: "white", bg: "whiteAlpha.200" }}
-                  onClick={toggleChat}
+                  onClick={handleToggleChat}
                   icon={<Minimize2 size={16} />}
                 />
               </HStack>
@@ -424,7 +298,7 @@ const Chatbot = () => {
               <HStack spacing={2}>
                 <Input
                   value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
+                  onChange={handleInputChange}
                   onKeyPress={handleKeyPress}
                   placeholder="Ask me anything about photography..."
                   borderRadius="full"
